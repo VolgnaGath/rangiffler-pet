@@ -327,17 +327,6 @@ public class GrpcUserDataService extends RangifflerUserServiceGrpc.RangifflerUse
         friendToRemove.removeInvites(currentUser);
         userRepository.save(currentUser);
 
-
-
-//        RemoveFriendResponse responseRemoveUser = RemoveFriendResponse.newBuilder().mergeRemovedUser(User.newBuilder()
-//                .setId(friendToRemove.getId().toString())
-//                .setUsername(friendToRemove.getUsername())
-//                .setFirstname(friendToRemove.getFirstname())
-//                .setSurname(friendToRemove.getUsername())
-//                .setAvatar(friendToRemove.getAvatar())
-//                .setFriendState(FriendState.NOT_FRIEND).build()).build();
-//            responseObserver.onNext(responseRemoveUser);
-//            responseObserver.onCompleted();
         Empty response = Empty.getDefaultInstance();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
