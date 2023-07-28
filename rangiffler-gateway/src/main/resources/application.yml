@@ -1,0 +1,81 @@
+server:
+  port: 8080
+  error:
+    include:
+      message: true
+
+spring:
+  application:
+    name: rangiffler-gateway
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://127.0.0.1:9000'
+
+grpc:
+  client:
+    grpcPhotoClient:
+      address: 'static://localhost:8093'
+      negotiationType: PLAINTEXT
+    grpcUserDataClient:
+      address: 'static://localhost:8092'
+      negotiationType: PLAINTEXT
+    grpcGeoClient:
+      address: 'static://localhost:8094'
+      negotiationType: PLAINTEXT
+
+
+rangiffler-client:
+  base-uri: 'http://127.0.0.1:3001'
+rangiffler-photo:
+  base-uri: 'http://127.0.0.1:8095'
+rangiffler-userdata:
+  base-uri: 'http://127.0.0.1:8096'
+rangiffler-geo:
+  base-uri: 'http://127.0.0.1:8097'
+---
+spring:
+  config:
+    activate:
+      on-profile: 'docker'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://auth.rangiffler.dc:9000'
+
+grpc:
+  client:
+    grpcPhotoClient:
+      address: 'static://photo.rangiffler.dc:8093'
+      negotiationType: PLAINTEXT
+    grpcUserDataClient:
+      address: 'static://userdata.rangiffler.dc:8092'
+      negotiationType: PLAINTEXT
+    grpcGeoClient:
+      address: 'static://geo.rangiffler.dc:8094'
+      negotiationType: PLAINTEXT
+
+rangiffler-front:
+  base-uri: 'http://frontend.rangiffler.dc'
+rangiffler-photo:
+  base-uri: 'http://photo.rangiffler.dc:8095'
+rangiffler-userdata:
+    base-uri: 'http://userdata.rangiffler.dc:8096'
+rangiffler-geo:
+  base-uri: 'http://geo.rangiffler.dc:8097'
+---

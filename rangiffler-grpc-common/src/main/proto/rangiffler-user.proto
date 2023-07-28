@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "grpc.rangiffler.grpc";
+option java_outer_classname = "RangifflerUserProto";
+
+service RangifflerUserService {
+  rpc GetUpdateUserInfo (UpdateUserInfoRequest) returns (UpdateUserInfoResponse) {}
+  rpc CurrentUser (CurrentUserRequest) returns (CurrentUserResponse) {}
+  rpc AllUsers (AllUsersRequest) returns (AllUsersResponse) {}
+  rpc Friends (UserFriendsRequest) returns (UserFriendsResponse) {}
+  rpc Invitations (UserInvitationsRequest) returns (UsersInvitationResponse) {}
+  rpc AddFriend (AddFriendsRequest) returns (AddFriendsResponse) {}
+  rpc AcceptInvitation (AcceptInvitationRequest) returns (AcceptInvitationResponse) {}
+  rpc DeclineInvitation (DeclineInvitationRequest) returns (DeclineInvitationResponse) {}
+  rpc RemoveUsersFriend (RemoveFriendRequest) returns (google.protobuf.Empty) {}
+}
+
+message UpdateUserInfoRequest {
+  User updateUser = 1;
+}
+
+message CurrentUserRequest {
+  string username = 1;
+}
+
+message AllUsersRequest {
+  string username = 1;
+}
+
+message UserFriendsRequest {
+  string username = 1;
+  bool includePending = 2;
+}
+
+message UserInvitationsRequest {
+  string username = 1;
+}
+
+message AddFriendsRequest {
+  string username = 1;
+  Friend friend = 2;
+}
+
+message AcceptInvitationRequest {
+  string username = 1;
+  Friend invitation = 2;
+}
+
+message DeclineInvitationRequest {
+  string username = 1;
+  Friend invitation = 2;
+}
+
+message RemoveFriendRequest {
+  string username = 1;
+  Friend friendForRemove = 2;
+}
+
+message CurrentUserResponse {
+  User currentUser = 1;
+}
+
+message UpdateUserInfoResponse {
+  User updatedUser = 1;
+}
+
+message AllUsersResponse {
+  repeated User allUsers = 1;
+}
+
+message UserFriendsResponse {
+  repeated User user = 1;
+}
+
+message UsersInvitationResponse {
+  repeated User user = 1;
+}
+
+message AddFriendsResponse {
+  User user = 1;
+}
+
+message AcceptInvitationResponse {
+  User user = 1;
+}
+
+message DeclineInvitationResponse {
+  User user = 1;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string firstname = 3;
+  string surname = 4;
+  FriendState friendState = 5;
+  string avatar = 6;
+}
+message Friend {
+  string username = 1;
+}
+enum FriendState {
+  NOT_FRIEND = 0;
+  INVITATION_SENT = 1;
+  INVITATION_RECEIVED = 2;
+  FRIEND = 3;
+}
