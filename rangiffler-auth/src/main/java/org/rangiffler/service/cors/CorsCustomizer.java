@@ -26,8 +26,9 @@ public class CorsCustomizer {
                 CorsConfiguration cc = new CorsConfiguration();
                 cc.setAllowCredentials(true);
                 cc.setAllowedOrigins(List.of(rangifflerFrontUri));
-                cc.setAllowedHeaders(List.of("*"));
-                cc.setAllowedMethods(List.of("*"));
+                cc.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
+                cc.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-XSRF-TOKEN"));
+                cc.setExposedHeaders(List.of("X-XSRF-TOKEN"));
                 return cc;
             };
 
